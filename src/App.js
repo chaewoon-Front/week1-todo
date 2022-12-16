@@ -1,36 +1,35 @@
-import React from "react";
-import { useState } from "react";
-import "./App.css";
+// src/App.js
 
-function App() {
-  const [title, setTitle] = useState("");
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "오채운 리액트 배우자",
-    },
-  ]);
+import React, { useState } from "react";
 
+function Child(props) {
   return (
     <div>
-      <input
-        type="text"
-        value={title}
-        onChange={(event) => {
-          setTitle(event.target.value);
-        }}
-      />
       <button
         onClick={() => {
-          setTodos([...todos, { id: todos.length + 1, title: title }]);
+          props.setName("박할아"); // 드디어 받은 setName을 실행합니다.
         }}
       >
-        추가하기
+        할아버지 이름 바꾸기
       </button>
-      <h1>Todo List</h1>
-      <div className="todos-container">{}</div>
+      <div>{props.grandFatherName}</div>
     </div>
   );
+}
+
+function Mother(props) {
+  return (
+    <Child grandFatherName={props.grandFatherName} setName={props.setName} /> // 받아서 다시 주고
+  );
+}
+
+function GrandFather() {
+  const [name, setName] = useState("김할아");
+  return <Mother grandFatherName={name} setName={setName} />; // 주고
+}
+
+function App() {
+  return <GrandFather />;
 }
 
 export default App;
