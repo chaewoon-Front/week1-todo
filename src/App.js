@@ -1,15 +1,17 @@
 // src/App.js
 
-import React from "react";
+import React, { useState } from "react";
 
 function App() {
-  function onClickHandler() {
-    console.log("hello, button");
-  }
-
+  const [value, setValue] = useState("");
+  const onChangeHandler = (event) => {
+    const inputValue = event.target.value;
+    setValue(inputValue);
+  };
+  console.log(value);
   return (
     <div>
-      <button onClick={onClickHandler}>버튼</button>
+      <input type="text" onChange={onChangeHandler} value={value} />
     </div>
   );
 }
